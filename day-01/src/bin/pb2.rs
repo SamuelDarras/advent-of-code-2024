@@ -35,6 +35,5 @@ fn main() {
         })
         .sum::<u32>();
 
-    println!("{count:?}");
     println!("Score={score}");
 }
