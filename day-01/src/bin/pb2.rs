@@ -2,12 +2,12 @@ use std::collections::HashMap;
 
 fn main() {
     let src = include_str!("src2.txt");
-//     let src = "3   4
-// 4   3
-// 2   5
-// 1   3
-// 3   9
-// 3   3";
+    //     let src = "3   4
+    // 4   3
+    // 2   5
+    // 1   3
+    // 3   9
+    // 3   3";
 
     let (left, right) = src
         .lines()
@@ -23,8 +23,6 @@ fn main() {
             None => count.insert(*n, 1),
         };
     }
-
-    println!("{count:#?}");
 
     let score = left
         .iter()
