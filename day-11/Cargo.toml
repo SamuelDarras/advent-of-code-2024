@@ -10,4 +10,5 @@ name = "pb1"
 name = "pb2"
 
 [dependencies]
+memoize = "0.4.2"
 rayon = "1.10.0"
