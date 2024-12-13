@@ -1,0 +1,9 @@
+machines = _{ (machine ~ NEWLINE?)* }
+
+machine = { (" " | "\t")* ~ buttonA ~ NEWLINE ~ buttonB ~ NEWLINE ~ target ~ NEWLINE }
+
+buttonA = { "Button A: X+" ~ value ~ ", Y+" ~ value }
+buttonB = { "Button B: X+" ~ value ~ ", Y+" ~ value }
+target  = { "Prize: X=" ~ value ~ ", Y=" ~ value }
+
+value = { ASCII_DIGIT+ }

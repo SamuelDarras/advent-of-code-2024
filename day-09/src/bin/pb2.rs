@@ -33,9 +33,7 @@ fn main() {
         }
     }
 
-    show_layout(&disk);
-    fall_blocks(&mut disk, &mut descriptor);
-    show_layout(&disk);
+    fall_blocks(&mut disk, &descriptor);
     let result = disk.iter().enumerate().fold(0, |acc, (i, v)| {
         acc + i * if *v == usize::MAX { 0 } else { *v }
     });
@@ -44,8 +42,10 @@ fn main() {
 
 fn show_layout(disk: &Vec<usize>) {
     for block in disk[0..60].iter() {
-        if *block < usize::MAX {
+        if *block < 0xf {
             print!("{block:x}");
+        } else if *block != usize::MAX {
+            print!("&");
         } else {
             print!(".");
         }
@@ -53,7 +53,7 @@ fn show_layout(disk: &Vec<usize>) {
     println!()
 }
 
-fn fall_blocks(disk: &mut Vec<usize>, descriptor: &mut Vec<Block>) {
+fn fall_blocks(disk: &mut Vec<usize>, descriptor: &Vec<Block>) {
     let mut file_blocks = descriptor
         .iter()
         .rev()
@@ -66,8 +66,6 @@ fn fall_blocks(disk: &mut Vec<usize>, descriptor: &mut Vec<Block>) {
         .filter(|block| block.id == usize::MAX)
         .map(Block::clone)
         .collect::<Vec<Block>>();
-
-    empty_blocks.sort_by_key(|block| block.start);
 
     for i in 0..file_blocks.len() {
         show_layout(disk);
@@ -84,8 +82,6 @@ fn fall_blocks(disk: &mut Vec<usize>, descriptor: &mut Vec<Block>) {
                 file_block.start = empty_block.start;
                 empty_block.start += file_block.len;
                 empty_block.len -= file_block.len;
-
-                empty_blocks.sort_by_key(|block| block.start);
 
                 break;
             }
