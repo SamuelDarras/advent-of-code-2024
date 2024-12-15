@@ -253,14 +253,14 @@ fn show_map(
         let mut box_count = 0;
         for x in 0..width {
             match map.get(&(x, y)) {
-                Some(Tile::Wall) => write!(buffer, "#")?,
+                Some(Tile::Wall) => write!(buffer, "\x1B[47m#\x1B[0m")?,
                 Some(Tile::BoxLeft) => {
                     box_count += 1;
-                    write!(buffer, "[")?
+                    write!(buffer, "\x1B[33m[")?
                 }
-                Some(Tile::BoxRight) => write!(buffer, "]")?,
-                Some(Tile::Empty) => write!(buffer, ".")?,
-                Some(Tile::Robot) => write!(buffer, "@")?,
+                Some(Tile::BoxRight) => write!(buffer, "]\x1B[0m")?,
+                Some(Tile::Empty) => write!(buffer, "\x1B[38;2;40;40;40m.\x1B[0m")?,
+                Some(Tile::Robot) => write!(buffer, "\x1B[45;34m@\x1B[0m")?,
                 _ => {}
             }
         }
