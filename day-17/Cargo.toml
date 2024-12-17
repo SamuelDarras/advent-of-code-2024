@@ -10,3 +10,4 @@ name = "pb1"
 name = "pb2"
 
 [dependencies]
+rayon = "1.10.0"
